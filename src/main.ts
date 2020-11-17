@@ -5,13 +5,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
   const port = process.env.PORT || 3333;
 
-  app.setGlobalPrefix(globalPrefix);
+  app.enableCors();
 
   const options = new DocumentBuilder()
-    .setTitle('Nest Book Store Auth API')
+    .addBearerAuth()
+    .setTitle('Nest Bookstore Auth API')
     .setDescription(
       'Use these endpoints to authenticate with wishlist and receive an access token.',
     )
@@ -19,10 +19,10 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('/', app, document);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(port, () => {
-    Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+    Logger.log(`Listening at http://localhost:${port}/`, 'Bootstrap');
   });
 }
 bootstrap();

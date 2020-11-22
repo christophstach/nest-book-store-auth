@@ -12,7 +12,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('Nest Bookstore Auth API')
     .setDescription(
-      'Use these endpoints to authenticate with wishlist and receive an access token.',
+      'Use these endpoints to authenticate nest-book-store and receive an JWT token.',
     )
     .setVersion('1.0')
     .build();

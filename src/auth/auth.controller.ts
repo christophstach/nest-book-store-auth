@@ -1,5 +1,10 @@
 import { Controller, Get, Redirect, Req, UseGuards } from '@nestjs/common';
-import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
+import {
+  ApiDefaultResponse,
+  ApiExcludeEndpoint,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
@@ -15,16 +20,22 @@ export class AuthController {
   ) {}
 
   @Get('google')
-  @ApiExcludeEndpoint()
   @UseGuards(AuthGuard('google'))
+  @ApiDefaultResponse({
+    description:
+      'On successful login google oauth calls the google/redirect endpoint',
+  })
   googleAuth() {
     // Just a placeholder
   }
 
   @Get('google/redirect')
   @Redirect()
-  @ApiExcludeEndpoint()
   @UseGuards(AuthGuard('google'))
+  @ApiDefaultResponse({
+    description:
+      'This endpoints is called by google oauth service. On successful login it generates a JWT token and redirects further to the frontend app',
+  })
   async googleAuthRedirect(@Req() req) {
     const user = req.user;
 

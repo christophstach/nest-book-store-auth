@@ -10,7 +10,6 @@ async function bootstrap() {
   app.enableCors();
 
   const options = new DocumentBuilder()
-    .addBearerAuth()
     .setTitle('Nest Bookstore Auth API')
     .setDescription(
       'Use these endpoints to authenticate with wishlist and receive an access token.',
